@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const questions = [
+        {
+            question: "What is the output of 10 + 5?",
+            options: ["105", "15", "50", "5"],
+            answer: 2
+        },
+        {
+            question: "Which keyword declares a block-scoped variable that can be reassigned?",
+            options: ["var", "let", "const", "function"],
+            answer: 2
+        },
+        {
+            question: "Which symbol is used for strict equality in JavaScript?",
+            options: ["=", "==", "===", "!="],
+            answer: 3
+        },
+        {
+            question: "Which method adds an element to the end of an array?",
+            options: ["pop()", "push()", "shift()", "unshift()"],
+            answer: 2
+        },
+        {
+            question: "Which data type represents true or false?",
+            options: ["String", "Number", "Boolean", "Object"],
+            answer: 3
+        }
+    ];
+
+    function StartQuiz() {
+        let score = 0;
+
+        console.log("===== JAVASCRIPT QUIZ =====");
+
+        for (let i = 0; i < questions.length; i++) {
+
+            let currentQuestion = questions[i];
+
+            // Display question in console
+            
+            console.log("\nQuestion " + (i + 1) + ": " + currentQuestion.question);
+
+            // Prepare question and options for popup
+
+            let message = "Question " + (i + 1) + ": " + currentQuestion.question + "\n\n";
+
+            for (let j = 0; j < currentQuestion.options.length; j++) {
+                let option = (j + 1) + ". " + currentQuestion.options[j];
+
+                console.log(option);
+                message += option + "\n";
+            }
+
+            // Ask the question inside the popup
+
+            let userAnswer = prompt(message + "\nEnter your answer (1-4):");
+
+            if (userAnswer === null) {
+                console.log("Quiz cancelled!");
+                return;
+            }
+
+            userAnswer = userAnswer.trim();
+
+            if (!["1", "2", "3", "4"].includes(userAnswer)) {
+                console.log("Invalid input! Enter a number from 1 to 4.");
+                i--;
+                continue;
+            }
+
+            userAnswer = Number(userAnswer);
+
+            // Check answer
+            if (userAnswer === currentQuestion.answer) {
+                console.log("Correct Answer!");
+                score++;
+            } else {
+                console.log("Wrong Answer!");
+                console.log(
+                    "Correct Answer: " +
+                    currentQuestion.options[currentQuestion.answer - 1]
+                );
+            }
+
+            console.log("----------------------------");
+        }
+
+        // Calculate results
+        let totalQuestions = questions.length;
+        let incorrectAnswers = totalQuestions - score;
+        let percentage = (score / totalQuestions) * 100;
+
+        console.log("\n===== QUIZ RESULT =====");
+        console.log("Total Questions: " + totalQuestions);
+        console.log("Correct Answers: " + score);
+        console.log("Incorrect Answers: " + incorrectAnswers);
+        console.log("Final Score: " + score + "/" + totalQuestions);
+        console.log("Percentage: " + percentage + "%");
+
+        if (percentage >= 80) {
+            console.log("Performance: Excellent!");
+        } else if (percentage >= 60) {
+            console.log("Performance: Good!");
+        } else if (percentage >= 40) {
+            console.log("Performance: Average!");
+        } else {
+            console.log("Performance: Needs Improvement!");
+        }
+    }
+
+    StartQuiz();
+
+    </script>
+</body>
+</html>
