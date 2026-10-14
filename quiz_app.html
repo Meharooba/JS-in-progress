@@ -44,11 +44,11 @@
 
             let currentQuestion = questions[i];
 
-            // Display question in console
-            
+           
+
             console.log("\nQuestion " + (i + 1) + ": " + currentQuestion.question);
 
-            // Prepare question and options for popup
+            
 
             let message = "Question " + (i + 1) + ": " + currentQuestion.question + "\n\n";
 
@@ -59,7 +59,7 @@
                 message += option + "\n";
             }
 
-            // Ask the question inside the popup
+            
 
             let userAnswer = prompt(message + "\nEnter your answer (1-4):");
 
@@ -78,7 +78,7 @@
 
             userAnswer = Number(userAnswer);
 
-            // Check answer
+            
             if (userAnswer === currentQuestion.answer) {
                 console.log("Correct Answer!");
                 score++;
@@ -93,7 +93,7 @@
             console.log("----------------------------");
         }
 
-        // Calculate results
+        
         let totalQuestions = questions.length;
         let incorrectAnswers = totalQuestions - score;
         let percentage = (score / totalQuestions) * 100;
