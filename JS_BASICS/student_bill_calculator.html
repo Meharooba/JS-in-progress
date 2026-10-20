@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const notebookPrice =80;
+        const penPrice =20;
+        const pencilPrice = 10;
+
+        let notebookQty = Number(prompt("Enter notebook quantity"));
+        let penQty = Number(prompt("Enter pen quantity"));
+        let pencilQty = Number(prompt(" Enter pencil quantity"));
+
+        let Notebookcost = notebookPrice * notebookQty;
+        let Pencost = penPrice * penQty;
+        let pencilcost = pencilPrice * pencilQty;
+       
+        let total_bill = Notebookcost+Pencost+pencilcost;
+        console.log("Total Bill = ",total_bill);
+
+    </script>
+</body>
+</html>
