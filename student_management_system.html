@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // PART-1 (Basic Information and Variables)
+
+        console.log("STUDENT MANAGEMENT SYSTEM");
+
+        let student_name = "Ashik";
+        let age = 22;
+        const course_name = "Python Full Stack";
+        let subject_1_mark = 85;
+        let subject_2_mark = 90;
+        let subject_3_mark = 78;
+
+        console.log("Student Name:", student_name);
+        console.log("Age:", age);
+        console.log("Course:", course_name);
+        console.log("Subject 1 Mark:", subject_1_mark);
+        console.log("Subject 2 Mark:", subject_2_mark);
+        console.log("Subject 3 Mark:", subject_3_mark);
+
+        // PART-2 (Data Types and Type Conversion)
+
+        let student_place = "Trivandrum";
+        let student_fees = 53000;
+        let isRegistered = true;
+
+        console.log(typeof(student_place));
+        console.log(typeof(student_fees));
+        console.log(typeof(isRegistered));
+
+        let mark="85";
+        let new_mark=Number(mark);
+        console.log(new_mark)
+        console.log(typeof(new_mark))
+        console.log(new_mark+10);
+
+        let num=1222;
+        let new_num=String(num)
+        console.log(new_num)
+        console.log(typeof(new_num))
+
+        // PART-3 (Conditional Statements)
+
+        let total_marks = subject_1_mark + subject_2_mark + subject_3_mark;
+        let average = total_marks / 3;
+
+        console.log("Total Marks:", total_marks);
+        console.log("Average Marks:", average);
+
+        let grade;
+
+        if (average >= 90) {
+            grade = "A";
+        } else if (average >= 75) {
+            grade = "B";
+        } else if (average >= 60) {
+            grade = "C";
+        } else if (average >= 40) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+        console.log("Grade:", grade);
+
+        let result;
+
+        if (average >= 40) {
+            result = "Pass";
+        } else {
+            result = "Fail";
+        }
+        console.log("Result:", result);
+
+        // PART-4 (Loops)
+        
+        console.log("Numbers from 1 to 10:");
+        for (let i = 1; i <= 10; i++) {
+            console.log(i);
+        }
+
+        console.log("Numbers from 5 to 1:");
+        let i = 5;
+        while (i >= 1) {
+            console.log(i);
+            i--;
+        }
+
+        // console.log("Student Marks");
+        // let marks = [subject_1_mark, subject_2_mark, subject_3_mark];
+        // let total = 0;
+
+        // for (let i = 0; i < marks.length; i++) {
+        //     total = total + marks[i];
+        // }
+        // console.log("Total Marks:", total);
+        
+        // PART-5 (Arrays)
+
+        let subjects = ["JavaScript", "Python", "Database"];
+        let marks = [85, 90, 78];
+
+        console.log("Student Subjects")
+        for(let i=0 ; i<subjects.length ; i++){
+            console.log(subjects[i]);
+        }
+
+        let totalMarks = 0;
+
+        for (let i = 0; i < marks.length; i++) {
+            totalMarks = totalMarks + marks[i];
+        }
+        console.log("Total Marks:", totalMarks);
+
+        let highestMark = marks[0];
+
+        for (let i = 1; i < marks.length; i++) {
+            if (marks[i] > highestMark) {
+                highestMark = marks[i];
+            }
+        }
+        console.log("Highest Mark:", highestMark);
+
+        subjects.push("HTML");
+        console.log("Updated Subjects:", subjects);
+        
+        // PART-6 (Functions)
+
+        // function calculateTotal(marks) {
+        //     let total = 0;
+        //     for (let i = 0; i < marks.length; i++) {
+        //         total = total + marks[i];
+        //     }
+        //     return total;
+        // }
+
+        // function calculateAverage(marks) {
+        //     let total = calculateTotal(marks);
+        //     return total / marks.length;
+        // }
+
+        // function checkResult(average) {
+        //     if (average >= 40) {
+        //         return "Pass";
+        //     } else {
+        //         return "Fail";
+        //     }
+        // }
+
+        // function findGrade(average) {
+        //     if (average >= 90) {
+        //         return "A";
+        //     } else if (average >= 75) {
+        //         return "B";
+        //     } else if (average >= 60) {
+        //         return "C";
+        //     } else if (average >= 40) {
+        //         return "D";
+        //     } else {
+        //         return "F";
+        //     }
+        // }
+
+        // let marks = [85, 90, 78];
+
+        // let total = calculateTotal(marks);
+        // let average = calculateAverage(marks);
+        // let result = checkResult(average);
+        // let grade = findGrade(average);
+
+        // console.log("Total Marks:", total);
+        // console.log("Average Marks:", average.toFixed(2));
+        // console.log("Result:", result);
+        // console.log("Grade:", grade);
+
+        // PART-7 (Objects)
+
+        let student = {
+            name: "Ashik",
+            age: 22,
+            course: "Python Full Stack",
+            subjects: ["JavaScript", "Python", "Database"],
+            marks: [85, 90, 78]
+        };
+
+        console.log("Student Name:", student.name);
+        console.log("Course:", student.course);
+
+        console.log("Subject Marks:");
+        for (let i = 0; i < student.marks.length; i++) {
+            console.log(student.subjects[i] + ": " + student.marks[i]);
+        }
+
+        student.age = 23;
+        student.city = "Trivandrum";
+
+        console.log("Complete Student Information:");
+        console.log(student);
+    </script>
+</body>
+</html>
