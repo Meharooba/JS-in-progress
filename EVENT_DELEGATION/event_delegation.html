@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Event Delegation</title>
+</head>
+<body>
+<div id="fruitContainer">
+<button>Apple</button>
+<button>Banana</button>
+<button>Orange</button>
+</div>
+<script>
+let container = document.getElementById("fruitContainer");
+container.addEventListener("click", function(event) {
+console.log(event.target.textContent + " clicked");
+});
+</script>
+</body>
+</html>
