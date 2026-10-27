@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="message">Move your mouse over here </h2>
+    <script>
+        let heading = document.getElementById("message");
+
+        heading.addEventListener("mouseover",function(){
+            heading.style.color = "red";
+        });
+
+        heading.addEventListener("mouseout",function(){
+            heading.style.color = "black";
+        });
+
+    </script>
+    
+</body>
+</html>

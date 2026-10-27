@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="paragraph"> This is my web page!</p>
+    <button id="button"> Change colour </button>
+    <script>
+        let paragraph = document.getElementById("paragraph")
+        let button = document.getElementById("button")
+        button.addEventListener("click",function(){
+            document.body.style.color="blue";
+        });
+    </script>
+</body>
+</html>

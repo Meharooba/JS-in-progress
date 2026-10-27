@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="heading"> Good morning!</h1>
+    <button id="button">Change message</button>
+    <script>
+        let heading= document.getElementById("heading");
+        let button=document.getElementById("button");
+        button.addEventListener("click",function(){
+            heading.textContent="Welcome to Javascript"
+        });
+    </script>
+</body>
+</html>
