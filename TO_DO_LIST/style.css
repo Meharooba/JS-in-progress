@@ -1,0 +1,407 @@
+@charset "UTF-8";
+
+/* ---------- Colors & basics ---------- */
+:root {
+    --ink: #1f2a52;
+    --ink-soft: #6b7699;
+    --accent: #4658d6;
+    --accent-dark: #3446b8;
+    --accent-tint: #eceffd;
+    --panel: #f6f8ff;
+    --line: #dfe5f7;
+    --danger: #c2415b;
+    --danger-tint: #fdecef;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ---------- Background: soft color gradient ---------- */
+body {
+    margin: 0;
+    padding: 24px 16px;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background-color: #dfe8fc;
+    background-image:
+        radial-gradient(circle at 4% 28%, rgba(150, 165, 255, 0.55), transparent 30%),
+        radial-gradient(circle at 98% 72%, rgba(140, 195, 255, 0.6), transparent 28%),
+        linear-gradient(135deg, #e9e9ff 0%, #d8e6ff 50%, #e5e3fb 100%);
+}
+
+/* ---------- Card (flex column so sections can be ordered) ---------- */
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 30px 32px 26px;
+    background: #fbfcff;
+    border-radius: 22px;
+    box-shadow: 0 18px 44px rgba(70, 88, 214, 0.2);
+}
+
+/* order of sections on the card */
+.header,
+h1            { order: 0; }
+form          { order: 1; }
+.filters      { order: 2; }
+#taskList     { order: 3; }
+.task-summary { order: 4; }
+.clear-btn    { order: 5; }
+.container::after { order: 6; }
+
+/* ---------- Header ---------- */
+.header {
+    margin: 0;
+    text-align: center;
+}
+
+.sprig,
+.subtitle,
+.progress {
+    display: none;
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--accent-dark);
+}
+
+/* tagline under the title */
+h1::after {
+    content: "Plan your day. Get things done.";
+    display: block;
+    margin-top: 6px;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--ink-soft);
+}
+
+/* ---------- Add-task form ---------- */
+form {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 16px;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type="text"]::placeholder {
+    color: #9aa3c0;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(70, 88, 214, 0.15);
+}
+
+button {
+    font: inherit;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:focus-visible,
+.task-checkbox:focus-visible {
+    outline: 3px solid rgba(70, 88, 214, 0.5);
+    outline-offset: 2px;
+}
+
+.add-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 0.95rem;
+    color: #fff;
+    background: linear-gradient(135deg, #5468e6, #3d4fcf);
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(70, 88, 214, 0.35);
+}
+
+.add-btn::before {
+    content: "+";
+    margin-right: 8px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.add-btn:hover {
+    background: linear-gradient(135deg, #4a5ee0, #3446b8);
+}
+
+/* ---------- "Your Tasks" row with filter pills ---------- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.filters::before {
+    content: "Your Tasks";
+    margin-right: auto;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.filter-btn {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    color: #5a63b8;
+    background: var(--accent-tint);
+    border-radius: 999px;
+}
+
+.filter-btn:hover {
+    background: #dfe4fc;
+}
+
+.filter-btn.active {
+    color: #fff;
+    background: var(--accent);
+}
+
+/* ---------- Task list ---------- */
+#taskList {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 8px;
+    padding: 10px 14px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    transition: border-color 0.15s;
+}
+
+.task-item:hover {
+    border-color: #c4cdf3;
+}
+
+.task-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    background: #fff;
+    border: 2px solid #aab5e8;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.task-checkbox:hover {
+    border-color: var(--accent);
+}
+
+.task-checkbox:checked {
+    background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E") center / 80% no-repeat;
+    border-color: var(--accent);
+}
+
+.task-text {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    cursor: pointer;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: #9aa3c0;
+}
+
+.delete-btn {
+    flex-shrink: 0;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: transparent;
+    border-radius: 10px;
+}
+
+.delete-btn:hover {
+    color: var(--danger);
+    background: var(--danger-tint);
+}
+
+/* ---------- Empty state ---------- */
+.empty-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--ink-soft);
+    background: var(--panel);
+    border: 1px dashed #c9d2f2;
+    border-radius: 14px;
+}
+
+.empty-message::before {
+    content: "✧";
+    font-size: 1.3rem;
+    color: #8f9cf0;
+}
+
+.empty-message svg {
+    display: none;
+}
+
+/* ---------- Stat cards ---------- */
+.task-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.task-summary p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 14px 8px 12px;
+    font-size: 0;                      /* hides the "Total:" text, we draw our own labels */
+    background: linear-gradient(180deg, #f7f9ff, #f1f3ff);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.task-summary span {
+    order: -1;
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.task-summary p::after {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+.task-summary p:nth-child(1)::after { content: "Total"; }
+.task-summary p:nth-child(2)::after { content: "Completed"; }
+.task-summary p:nth-child(3)::after { content: "Pending"; }
+
+.task-summary p:nth-child(1) span { color: #8b5cf6; }
+.task-summary p:nth-child(2) span { color: #16a37f; }
+.task-summary p:nth-child(3) span { color: #e8920c; }
+
+/* ---------- Clear all ---------- */
+.clear-btn {
+    align-self: center;
+    margin-top: 18px;
+    padding: 9px 20px;
+    font-size: 0.9rem;
+    color: var(--accent-dark);
+    background: var(--accent-tint);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.clear-btn:hover {
+    color: var(--danger);
+    background: var(--danger-tint);
+    border-color: #f2c4cd;
+}
+
+/* ---------- Footer note ---------- */
+.container::after {
+    content: "Small steps every day make a big difference ✨";
+    margin-top: 18px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 560px) {
+    .container {
+        padding: 24px 16px 20px;
+        border-radius: 18px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .add-btn {
+        justify-content: center;
+        padding: 12px;
+    }
+
+    .filters::before {
+        flex-basis: 100%;
+        margin-bottom: 4px;
+    }
+
+    .task-summary {
+        gap: 10px;
+    }
+
+    .task-summary p {
+        padding: 12px 4px 10px;
+    }
+
+    .task-summary p::after {
+        font-size: 0.62rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
