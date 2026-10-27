@@ -121,7 +121,7 @@
                 taskList.appendChild(li);
             });
 
-            // Update task counters
+         
             totalTasks.textContent = tasks.length;
 
             completedTasks.textContent = tasks.filter(function(task) {
@@ -133,7 +133,7 @@
             }).length;
         }
 
-        // Add a new task
+     
         taskForm.addEventListener("submit", function(event) {
             event.preventDefault();
 
@@ -160,7 +160,6 @@
             displayTasks();
         });
 
-        // Event delegation: one listener for task interactions
         taskList.addEventListener("click", function(event) {
             const li = event.target.closest(".task-item");
 
@@ -170,7 +169,7 @@
 
             const taskId = li.dataset.id;
 
-            // Delete a task
+         
             if (event.target.closest(".delete-btn")) {
                 tasks = tasks.filter(function(task) {
                     return task.id !== taskId;
@@ -181,13 +180,13 @@
                 return;
             }
 
-            // Toggle completion when clicking the task text
+           
             if (event.target.classList.contains("task-text")) {
                 toggleTask(taskId);
             }
         });
 
-        // Handle checkbox changes using the same parent list
+       
         taskList.addEventListener("change", function(event) {
             if (!event.target.classList.contains("task-checkbox")) {
                 return;
@@ -200,7 +199,7 @@
             }
         });
 
-        // Toggle task completion
+       
         function toggleTask(taskId) {
             tasks = tasks.map(function(task) {
                 if (task.id === taskId) {
@@ -217,8 +216,7 @@
             displayTasks();
         }
 
-        // Update active filter button
-        function updateActiveFilter() {
+             function updateActiveFilter() {
             filterButtons.forEach(function(button) {
                 button.classList.toggle(
                     "active",
@@ -236,7 +234,7 @@
             });
         });
 
-        // Clear all tasks
+      
         clearAllBtn.addEventListener("click", function() {
             if (tasks.length === 0) {
                 alert("There are no tasks to clear.");
@@ -252,7 +250,7 @@
             }
         });
 
-        // Show saved tasks when the page opens
+      
         displayTasks();
     </script>
 

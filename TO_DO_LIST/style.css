@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-/* ---------- Colors & basics ---------- */
 :root {
     --ink: #1f2a52;
     --ink-soft: #6b7699;
@@ -17,7 +16,6 @@
     box-sizing: border-box;
 }
 
-/* ---------- Background: soft color gradient ---------- */
 body {
     margin: 0;
     padding: 24px 16px;
@@ -32,7 +30,7 @@ body {
         linear-gradient(135deg, #e9e9ff 0%, #d8e6ff 50%, #e5e3fb 100%);
 }
 
-/* ---------- Card (flex column so sections can be ordered) ---------- */
+
 .container {
     display: flex;
     flex-direction: column;
@@ -44,7 +42,6 @@ body {
     box-shadow: 0 18px 44px rgba(70, 88, 214, 0.2);
 }
 
-/* order of sections on the card */
 .header,
 h1            { order: 0; }
 form          { order: 1; }
@@ -54,7 +51,7 @@ form          { order: 1; }
 .clear-btn    { order: 5; }
 .container::after { order: 6; }
 
-/* ---------- Header ---------- */
+
 .header {
     margin: 0;
     text-align: center;
@@ -76,7 +73,7 @@ h1 {
     color: var(--accent-dark);
 }
 
-/* tagline under the title */
+
 h1::after {
     content: "Plan your day. Get things done.";
     display: block;
@@ -87,7 +84,6 @@ h1::after {
     color: var(--ink-soft);
 }
 
-/* ---------- Add-task form ---------- */
 form {
     display: flex;
     gap: 10px;
@@ -158,7 +154,7 @@ button:focus-visible,
     background: linear-gradient(135deg, #4a5ee0, #3446b8);
 }
 
-/* ---------- "Your Tasks" row with filter pills ---------- */
+
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -192,7 +188,7 @@ button:focus-visible,
     background: var(--accent);
 }
 
-/* ---------- Task list ---------- */
+
 #taskList {
     list-style: none;
     margin: 12px 0 0;
@@ -266,7 +262,7 @@ button:focus-visible,
     background: var(--danger-tint);
 }
 
-/* ---------- Empty state ---------- */
+
 .empty-message {
     display: flex;
     align-items: center;
@@ -290,7 +286,6 @@ button:focus-visible,
     display: none;
 }
 
-/* ---------- Stat cards ---------- */
 .task-summary {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -305,7 +300,7 @@ button:focus-visible,
     gap: 6px;
     margin: 0;
     padding: 14px 8px 12px;
-    font-size: 0;                      /* hides the "Total:" text, we draw our own labels */
+    font-size: 0;                      
     background: linear-gradient(180deg, #f7f9ff, #f1f3ff);
     border: 1px solid var(--line);
     border-radius: 14px;
@@ -334,7 +329,7 @@ button:focus-visible,
 .task-summary p:nth-child(2) span { color: #16a37f; }
 .task-summary p:nth-child(3) span { color: #e8920c; }
 
-/* ---------- Clear all ---------- */
+
 .clear-btn {
     align-self: center;
     margin-top: 18px;
@@ -352,7 +347,7 @@ button:focus-visible,
     border-color: #f2c4cd;
 }
 
-/* ---------- Footer note ---------- */
+
 .container::after {
     content: "Small steps every day make a big difference ✨";
     margin-top: 18px;
@@ -361,7 +356,7 @@ button:focus-visible,
     color: var(--ink-soft);
 }
 
-/* ---------- Mobile ---------- */
+
 @media (max-width: 560px) {
     .container {
         padding: 24px 16px 20px;
