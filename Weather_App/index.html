@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="app-brand">
+            <h1 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">SKYCAST</h1>
+            <p style="font-family: 'Courier New', Courier, monospace;">Know the Sky. Plan Your Day.</p>
+        </div>
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter city name">
+            <button id="searchBtn">Get Weather</button>
+        </div>
+        <p id="loadingMessage"></p>
+
+        <div class="weather-result" id="weatherResult" hidden>
+            <h2 id="cityName">City Name</h2>
+            <h1 id="temperature">-- °C</h1>
+            <p id="feelsLike">Feels like: -- °C</p>
+            <p id="weatherCondition">Weather Condition</p>
+        </div>
+        <p id="errorMessage"></p>
+    </div>
+
+  
+    <script>
+        const cityInput=document.getElementById("cityInput");
+        const searchBtn=document.getElementById("searchBtn");
+        const loadingMessage=document.getElementById("loadingMessage");
+        const weatherResult=document.getElementById("weatherResult");
+        const cityName=document.getElementById("cityName");
+        const temperature=document.getElementById("temperature");
+        const feelsLike = document.getElementById("feelsLike");
+        const weatherCondition=document.getElementById("weatherCondition");
+        const errorMessage=document.getElementById("errorMessage");
+
+
+        searchBtn.addEventListener("click",function(){
+            console.log("Get weather button clicked !");
+            const city = cityInput.value.trim();
+            if (city === "") {
+                weatherResult.hidden=true;
+                cityName.textContent="";
+                temperature.textContent="";
+                feelsLike.textContent="";
+                weatherCondition.textContent="";
+                errorMessage.textContent = "Please enter a city name.";
+                return;
+            }
+            errorMessage.textContent = "";
+            console.log(city);
+            getWeather(city);
+        });
+
+        const apiKey="bf11dd700bee50e1da51628d5297b68e"
+        
+        async function getWeather(city) {
+            try {
+                weatherResult.hidden = true;
+                loadingMessage.textContent="Getting weather information...";
+                cityName.textContent="";
+                temperature.textContent="";
+                feelsLike.textContent = "";
+                weatherCondition.textContent="";
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error("City not found. Please enter a valid city name.");
+                }
+
+                const data = await response.json();
+                cityName.textContent = data.name;
+                temperature.textContent = data.main.temp + " °C";
+                feelsLike.textContent = "Feels like: " + data.main.feels_like + " °C";
+                weatherCondition.textContent = data.weather[0].description;
+                errorMessage.textContent = "";
+                weatherResult.hidden = false;
+            }
+            catch (error) {
+                weatherResult.hidden = true;
+                errorMessage.textContent = error.message;
+            }
+            finally{
+                loadingMessage.textContent="";
+            }
+        }  
+    </script>
+
+</body>
+</html>

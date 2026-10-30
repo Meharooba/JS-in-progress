@@ -1,0 +1,322 @@
+/* Cloudscape Weather App
+   Pairs with index.html — no HTML changes needed. Clouds are pure CSS. */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Manrope:wght@300;400;600&display=swap");
+
+:root {
+    --sky-top: #3f9bef;
+    --sky-mid: #86c5f6;
+    --sky-low: #dcefff;
+    --ink: #14304d;
+    --ink-soft: #4d6176;
+    --accent: #2b86dd;
+    --accent-hover: #1f74c6;
+    --glass: rgba(255, 255, 255, 0.28);
+    --glass-edge: rgba(255, 255, 255, 0.6);
+    --puff: rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.45) 55%, rgba(255, 255, 255, 0);
+    --font-display: "Manrope", "Segoe UI", system-ui, sans-serif;
+    --font-text: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+    overflow-x: hidden;
+    font-family: var(--font-text);
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 85% 8%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 32%),
+        linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 48%, var(--sky-low) 100%);
+    background-attachment: fixed;
+}
+
+/* ---------- Floating clouds (two drifting layers) ---------- */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    width: calc(100% + 1800px);
+    pointer-events: none;
+    z-index: 0;
+    background-repeat: repeat-x;
+    will-change: transform;
+}
+
+/* Layer 1: smaller, crisper, higher up */
+body::before {
+    top: 6%;
+    height: 300px;
+    background-size: 1200px 300px;
+    background-image:
+        radial-gradient(ellipse 120px 46px at 220px 170px, var(--puff)),
+        radial-gradient(ellipse 70px 55px at 170px 135px, var(--puff)),
+        radial-gradient(ellipse 85px 65px at 255px 125px, var(--puff)),
+        radial-gradient(ellipse 90px 32px at 700px 105px, var(--puff)),
+        radial-gradient(ellipse 50px 38px at 665px 80px, var(--puff)),
+        radial-gradient(ellipse 60px 44px at 725px 72px, var(--puff)),
+        radial-gradient(ellipse 100px 36px at 1020px 215px, var(--puff)),
+        radial-gradient(ellipse 55px 42px at 985px 190px, var(--puff)),
+        radial-gradient(ellipse 65px 48px at 1050px 180px, var(--puff));
+    animation: drift-near 90s linear infinite;
+}
+
+/* Layer 2: larger, softer, lower — gives depth */
+body::after {
+    bottom: 4%;
+    height: 260px;
+    opacity: 0.6;
+    filter: blur(3px);
+    background-size: 1800px 260px;
+    background-image:
+        radial-gradient(ellipse 160px 52px at 400px 150px, var(--puff)),
+        radial-gradient(ellipse 90px 60px at 340px 115px, var(--puff)),
+        radial-gradient(ellipse 110px 70px at 450px 100px, var(--puff)),
+        radial-gradient(ellipse 140px 46px at 1300px 170px, var(--puff)),
+        radial-gradient(ellipse 75px 52px at 1250px 140px, var(--puff)),
+        radial-gradient(ellipse 90px 60px at 1350px 125px, var(--puff));
+    animation: drift-far 150s linear infinite;
+}
+
+@keyframes drift-near {
+    to { transform: translate3d(-1200px, 0, 0); }
+}
+
+@keyframes drift-far {
+    to { transform: translate3d(-1800px, 0, 0); }
+}
+
+/* ---------- Glass card ---------- */
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem 1.75rem 2.25rem;
+    text-align: center;
+    background: var(--glass);
+    border: 1px solid var(--glass-edge);
+    border-radius: 28px;
+    box-shadow:
+        0 24px 60px rgba(24, 76, 138, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+    backdrop-filter: blur(22px) saturate(140%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .container {
+        background: rgba(255, 255, 255, 0.6);
+    }
+}
+
+.container > h1 {
+    margin: 0 0 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink-soft);
+}
+
+/* ---------- Search ---------- */
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(24, 76, 138, 0.12);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.search-box:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(43, 134, 221, 0.3), 0 6px 18px rgba(24, 76, 138, 0.12);
+}
+
+#cityInput {
+    flex: 1;
+    min-width: 0;
+    padding: 0.7rem 0.4rem 0.7rem 1.1rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    outline: none;
+}
+
+#cityInput::placeholder {
+    color: #627588;
+}
+
+#searchBtn {
+    flex-shrink: 0;
+    padding: 0.7rem 1.25rem;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#searchBtn:hover {
+    background: var(--accent-hover);
+}
+
+#searchBtn:active {
+    transform: scale(0.97);
+}
+
+#searchBtn:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+}
+
+/* ---------- Status messages ---------- */
+
+#loadingMessage,
+#errorMessage {
+    margin: 1.25rem 0 0;
+    font-size: 0.95rem;
+}
+
+#loadingMessage:empty,
+#errorMessage:empty {
+    display: none;
+}
+
+#loadingMessage {
+    color: var(--ink-soft);
+    animation: pulse 1.6s ease-in-out infinite;
+}
+
+#errorMessage {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #8c1d18;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 14px;
+}
+
+#errorMessage:empty {
+    display: none;
+}
+
+@keyframes pulse {
+    50% { opacity: 0.45; }
+}
+
+/* ---------- Weather result ---------- */
+
+.weather-result {
+    margin-top: 1.75rem;
+}
+
+.weather-result[hidden] {
+    display: none;
+}
+
+.weather-result:not([hidden]) {
+    animation: settle 0.5s ease-out;
+}
+
+@keyframes settle {
+    from { opacity: 0; transform: translateY(8px); }
+}
+
+#cityName {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+#temperature {
+    margin: 0.5rem 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 13vw, 4.25rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;           /* keeps the number and °C on one line */
+    color: var(--ink);
+    text-shadow: 0 4px 24px rgba(255, 255, 255, 0.5);
+}
+
+#feelsLike {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--ink-soft);
+}
+
+#weatherCondition {
+    display: inline-block;
+    margin: 1rem 0 0;
+    padding: 0.35rem 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    text-transform: capitalize;
+    color: var(--ink-soft);
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+}
+
+/* ---------- Small screens ---------- */
+
+@media (max-width: 420px) {
+    body {
+        padding: 1rem;
+    }
+
+    .container {
+        padding: 1.5rem 1.1rem 1.75rem;
+        border-radius: 24px;
+    }
+
+    #searchBtn {
+        padding: 0.65rem 1rem;
+    }
+
+    .weather-result {
+        margin-top: 1.5rem;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after,
+    #loadingMessage,
+    .weather-result:not([hidden]) {
+        animation: none;
+    }
+}
